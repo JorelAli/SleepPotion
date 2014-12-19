@@ -1,0 +1,5 @@
+name: SleepPotion
+main: io.github.Skepter.SleepPotion.Main
+version: 1.0
+description: Adds a potion of sleeping
+author: Skepter
