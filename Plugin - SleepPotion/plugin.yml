@@ -1,5 +1,9 @@
 name: SleepPotion
 main: io.github.Skepter.SleepPotion.Main
-version: 1.0
+version: 1.1
 description: Adds a potion of sleeping
 author: Skepter
+
+commands:
+  sleeppotion:
+    description: Gives the target player a sleep potion
