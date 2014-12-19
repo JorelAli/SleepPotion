@@ -32,6 +32,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
 		getCommand("sleeppotion").setExecutor(this);
+		saveDefaultConfig();
 
 		ShapedRecipe recipe1 = new ShapedRecipe(potionItemStack());
 		recipe1.shape(new String[] { "WWW", "WPW", "WWW" });
@@ -52,6 +53,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void onDisable() {
 		for (Player player : Bukkit.getOnlinePlayers())
 			awakeFromBed(player);
+		saveConfig();
 	}
 
 	private Player getPlayer(String player) {
@@ -175,9 +177,9 @@ public class Main extends JavaPlugin implements Listener {
 	private void doBedAction(final Player player, boolean extended) {
 		putToBed(player);
 
-		int duration = 5;
+		int duration = getConfig().getInt("potionTime");
 		if (extended)
-			duration = 10;
+			duration = getConfig().getInt("extendedPotionTime");
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 
