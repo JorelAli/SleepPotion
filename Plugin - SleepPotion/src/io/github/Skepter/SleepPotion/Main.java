@@ -63,30 +63,34 @@ public class Main extends JavaPlugin implements Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (!sender.isOp() || !sender.hasPermission("SleepPotion.command")) {
-			sender.sendMessage("[SleepPotion] You do not have permissions to spawn a sleep potion");
-			return true;
-		}
-		switch (args.length) {
-		case 0:
-		case 1:
-			sender.sendMessage("[SleepPotion Help]");
-			sender.sendMessage("The amount of potions to give is optional");
-			sender.sendMessage("/sleeppotion give <Player> (amount)");
-			sender.sendMessage("/sleeppotion giveextended <Player> (amount)");
-		case 2:
-			if (args[0].equalsIgnoreCase("give"))
-					getPlayer(args[1]).getInventory().addItem(potionItemStack());
-			else if (args[0].equalsIgnoreCase("giveextended"))
-					getPlayer(args[1]).getInventory().addItem(potionExtendedItemStack());
-			return true;
-		case 3:
-			if (args[0].equalsIgnoreCase("give"))
-				for (int i = 0; i < Integer.parseInt(args[2]); i++)
-					getPlayer(args[1]).getInventory().addItem(potionItemStack());
-			else if (args[0].equalsIgnoreCase("giveextended"))
-				for (int i = 0; i < Integer.parseInt(args[2]); i++)
-					getPlayer(args[1]).getInventory().addItem(potionExtendedItemStack());
+		if(command.getName().equalsIgnoreCase("sleeppotion")) {
+			if (!sender.isOp() || !sender.hasPermission("SleepPotion.command")) {
+				sender.sendMessage("[SleepPotion] You do not have permissions to spawn a sleep potion");
+				return true;
+			}
+			switch (args.length) {
+			case 0:
+			case 1:
+				sender.sendMessage("[SleepPotion Help]");
+				sender.sendMessage("The amount of potions to give is optional");
+				sender.sendMessage("/sleeppotion give <Player> (amount)");
+				sender.sendMessage("/sleeppotion giveextended <Player> (amount)");
+				break;
+			case 2:
+				if (args[0].equalsIgnoreCase("give"))
+						getPlayer(args[1]).getInventory().addItem(potionItemStack());
+				else if (args[0].equalsIgnoreCase("giveextended"))
+						getPlayer(args[1]).getInventory().addItem(potionExtendedItemStack());
+				break;
+			case 3:
+				if (args[0].equalsIgnoreCase("give"))
+					for (int i = 0; i < Integer.parseInt(args[2]); i++)
+						getPlayer(args[1]).getInventory().addItem(potionItemStack());
+				else if (args[0].equalsIgnoreCase("giveextended"))
+					for (int i = 0; i < Integer.parseInt(args[2]); i++)
+						getPlayer(args[1]).getInventory().addItem(potionExtendedItemStack());
+				break;
+			}
 			return true;
 		}
 		return false;
