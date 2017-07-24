@@ -160,7 +160,6 @@ public class Main extends JavaPlugin implements Listener {
 		meta.setDisplayName("Potion of Sleeping");
 		meta.setLore(Arrays.asList(new String[] { ChatColor.RED + "Sleepiness " + getDurationString(false) }));
 		itemStack.setItemMeta(meta);
-//		itemStack.setDurability((short) 16384);
 		return itemStack;
 	}
 
@@ -173,10 +172,10 @@ public class Main extends JavaPlugin implements Listener {
 		meta.setDisplayName("Potion of Sleeping");
 		meta.setLore(Arrays.asList(new String[] { ChatColor.RED + "Sleepiness " + getDurationString(true) }));
 		itemStack.setItemMeta(meta);
-//		itemStack.setDurability((short) 16384);
 		return itemStack;
 	}
 	
+	//Produces the String for the lore for the duration of the potion
 	private String getDurationString(boolean extended) {
 		int duration = getConfig().getInt("potionTime");
 		if (extended)
@@ -212,8 +211,10 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@SuppressWarnings("deprecation")
 	private void putToBed(final Player player) {
+		/* Block change required for the bed packet */
 		player.sendBlockChange(player.getLocation(), Material.BED_BLOCK, (byte) 0);
 		
+		//Send packet using ProtocolLib
 		PacketContainer packet = new PacketContainer(PacketType.Play.Server.BED);
 		packet.getIntegers().write(0, player.getEntityId());
 		packet.getBlockPositionModifier().write(0, new BlockPosition(player.getLocation().toVector()));
@@ -226,8 +227,10 @@ public class Main extends JavaPlugin implements Listener {
 
 	@SuppressWarnings("deprecation")
 	private void awakeFromBed(final Player player) {
+		/* Remove block change */
 		player.sendBlockChange(player.getLocation(), player.getLocation().getBlock().getType(), (byte) 0);
 		
+		//Send packet using ProtocolLib
 		PacketContainer packet = new PacketContainer(PacketType.Play.Server.ANIMATION);
 		packet.getIntegers().write(0, player.getEntityId());
 		packet.getIntegers().write(1, 2);
