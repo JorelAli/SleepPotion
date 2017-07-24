@@ -1,8 +1,9 @@
 name: SleepPotion
-main: io.github.Skepter.SleepPotion.Main
-version: 1.2
+main: io.github.skepter.sleeppotion.Main
+version: 1.4
 description: Adds a potion of sleeping
 author: Skepter
+depend: [ProtocolLib]
 
 commands:
   sleeppotion:
